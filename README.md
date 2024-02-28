@@ -1,6 +1,6 @@
 # financial-fraud-detection-lab
 
-![Financial Fraud Detective](fraud_detective.png)
+![Fraud Detective](images/fraud_detective.png)
 
 ## Project Overview
 
@@ -25,18 +25,66 @@ In the second step I cleaned and exported the data, dropping unneccessary column
 Finally, I've decided to train a few models with our sample dataset using Decision Tree, RandomForestClassifier and finding the best possible hyperparameters using GridSearchCV, RandomSearchCV. 
 
 1. Decision Tree Classifier
-![Decision Tree](DecisionTreeClassifierResults.png)
+![Decision Tree Classifier](images/DecisionTreeClassifierResults.png)
 
-We achieved an accuracy score of 99.91%. 
+We achieved a high accuracy score of 99.91%. Normally, this would be a very good sign that our model did a great job in with its prediction. However in our case, as shown in the EDA process, we have a high class imbalance between isFraud and isn't Fraud. We must analyze other metrics in order to get the bigger picture.
+
+Our model did really well in predicting non-fradulent cases, so we won't go over them in our README, we specifically are more interested on whether or not our model was able to predict rare cases in our model.
+
+Preicion Score: 0.8 - Of the cases that we predicted were fraud, actually was fraud. 
+
+Recall: 0.64 - Of all fraud cases in total, how many did the model correctly predict? 
+
+f1-score: 0.711, balanced mean between precision and recall. 
+
+Support: 14975 / 25, only 25 cases were fradulent. 
+
+In conclusion, our model had a hard time predicting fraduent cases correctly (Recall). The precision score could be better, we are letting around 20% of fradulent data slip from our model.
 
 Grid Search CV
-![Grid Search](GridSearchCV.png)
+![Grid Search](images/GridSearchCV.png)
+
+Next, we used Grid Search in order to find the best possible hyperparameter for our Decision Tree Classifier.
+
+In the image above, we can see that there has been a slight improve in our overall accuracy score from 99.91% to 99.92%
+
+Precision Score: 0.8 -> 0.84 Our precision score went up by .04%.
+
+Recall: 0.64 -> 0.64 Our recall stayed mostly the same.
+
+The Grid Search definintely helped to improve our model's overall performance and also improved its precision score.
 
 2. Random Forest Classifier
-![Random Forest](RandomForestClassifier.png)
+![Random Forest](images/RandomForestClassifier.png)
+
+Moving on to the Random Forest Classifier. We achieved a high accuracy score of 99.95%. 
+
+Preicion Score: 1 - Of the cases that we predicted were fraud, actually was fraud. 
+
+Recall: 0.68 - Of all fraud cases in total, how many did the model correctly predict? 
+
+f1-score: 0.81, balanced mean between precision and recall. 
+
+Support: 14975 / 25, only 25 cases were fradulent. 
+
+In conclusion, our model had a hard time predicting fraduent cases correctly (Recall). However, for the cases that were actually predicted to be fraud was actually 100% fraud. The precision of the model was spot on. 
 
 Random Search CV
-![Random Forest](RandomSearchCV.png)
+![Random Search](images/RandomSearchCV.png)
+
+Finally, we used Random Search in order to find the best possible hyperparameter for our Random Forest Classifier.
+
+In the image above, we can see that there has been a no improvement in our overall accuracy score.
+
+Precision Score: 1 -> 1 Our precision score remained the same.
+
+Recall: 0.68 -> 0.68 Our recall stayed the same as well.
+
+f1-score: 0.81 -> 0.81 Our f1-score remained the same as well.
+
+Support: 14975 / 25, only 25 cases were fradulent. This remained the same as well.
+
+The Random Search did not really help our Random Forest Classifier model to perform better.
 
 
 
