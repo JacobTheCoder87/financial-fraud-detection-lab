@@ -25,52 +25,58 @@ In the second step I cleaned and exported the data, dropping unneccessary column
 Finally, I've decided to train a few models with our sample dataset using Decision Tree, RandomForestClassifier and finding the best possible hyperparameters using GridSearchCV, RandomSearchCV. 
 
 1. Decision Tree Classifier
-![Decision Tree Classifier](images/DecisionTreeClassifierResults.png)
+![Decision Tree Classifier](images/DecisionTreeClassifier.png)
 
-We achieved a high accuracy score of 99.91%. Normally, this would be a very good sign that our model did a great job in with its prediction. However in our case, as shown in the EDA process, we have a high class imbalance between isFraud and isn't Fraud. We must analyze other metrics in order to get the bigger picture.
+We achieved a high accuracy score of 99.94%. Normally, this would be a very good sign that our model did a great job in with its prediction. However in our case, as shown in the EDA process, we have a high class imbalance between isFraud and isn't Fraud. We must analyze other metrics in order to get the bigger picture.
 
 Our model did really well in predicting non-fradulent cases, so we won't go over them in our README, we specifically are more interested on whether or not our model was able to predict rare cases in our model.
 
-Preicion Score: 0.8 - Of the cases that we predicted were fraud, actually was fraud. 
+Precision Score: 0.90 - Of the cases that we predicted were fraud, actually was fraud. 
 
-Recall: 0.64 - Of all fraud cases in total, how many did the model correctly predict? 
+Recall: 0.72 - Of all fraud cases in total, how many did the model correctly predict? 
 
-f1-score: 0.711, balanced mean between precision and recall. 
+f1-score: 0.80, balanced mean between precision and recall. 
 
 Support: 14975 / 25, only 25 cases were fradulent. 
 
-In conclusion, our model had a hard time predicting fraduent cases correctly (Recall). The precision score could be better, we are letting around 20% of fradulent data slip from our model.
+In conclusion, our model had a hard time predicting fraduent cases correctly (Recall). The precision score could be better, we are letting around 10% of fradulent data slip from our model.
 
 Grid Search CV
-![Grid Search](images/GridSearchCV.png)
+![Grid Search CV](images/GridSearchCV.png)
 
 Next, we used Grid Search in order to find the best possible hyperparameter for our Decision Tree Classifier.
 
-In the image above, we can see that there has been a slight improve in our overall accuracy score from 99.91% to 99.92%
+In the image above, we can see that there has been a slight decrease in our overall accuracy score from 99.94% to 99.93%
 
-Precision Score: 0.8 -> 0.84 Our precision score went up by .04%.
+Precision Score: 0.90 -> 1 Our precision score went up by 10%.
 
-Recall: 0.64 -> 0.64 Our recall stayed mostly the same.
+Recall: 0.72 -> 0.60 Our recall decreased by 12%
 
-The Grid Search definintely helped to improve our model's overall performance and also improved its precision score.
+f1-score: 0.80 -> 0.75 Our f1-score decreased by 5%
+
+Support: 14975 / 25 Our support remained the same
+
+The Grid Search helped to improve our precision, but performed worst on Recall and f1-score. This is not a good sign for our model. It means that our model had a harder time accurately predicting fradulent cases given all fradulent cases. It wasn't able to detect all fradulent cases easily.
+
+Generally before we train our model, our model is prone to underfitting each time. After training our model, we observed overfitting because our model is performing worse than what we had with the RandomForest. 
 
 2. Random Forest Classifier
-![Random Forest](images/RandomForestClassifier.png)
+![Random Forest Classifier](images/RandomForestClassifier.png)
 
 Moving on to the Random Forest Classifier. We achieved a high accuracy score of 99.95%. 
 
-Preicion Score: 1 - Of the cases that we predicted were fraud, actually was fraud. 
+Precicion Score: 1 - Of the cases that we predicted were fraud, actually was fraud. 
 
-Recall: 0.68 - Of all fraud cases in total, how many did the model correctly predict? 
+Recall: 0.72 - Of all fraud cases in total, how many did the model correctly predict? 
 
-f1-score: 0.81, balanced mean between precision and recall. 
+f1-score: 0.837, balanced mean between precision and recall. 
 
 Support: 14975 / 25, only 25 cases were fradulent. 
 
-In conclusion, our model had a hard time predicting fraduent cases correctly (Recall). However, for the cases that were actually predicted to be fraud was actually 100% fraud. The precision of the model was spot on. 
+In conclusion, our model did alright at predicting fraduent cases correctly (Recall). However, for the cases that were actually predicted to be fraud was actually 100% fraud. The precision of the model was spot on. 
 
 Random Search CV
-![Random Search](images/RandomSearchCV.png)
+![Random Search CV](images/RandomSearchCV.png)
 
 Finally, we used Random Search in order to find the best possible hyperparameter for our Random Forest Classifier.
 
@@ -78,13 +84,29 @@ In the image above, we can see that there has been a no improvement in our overa
 
 Precision Score: 1 -> 1 Our precision score remained the same.
 
-Recall: 0.68 -> 0.68 Our recall stayed the same as well.
+Recall: 0.72 -> 0.68 Our recall decreased by 4%
 
-f1-score: 0.81 -> 0.81 Our f1-score remained the same as well.
+f1-score: 0.837 -> 0.809 Our f1-score decreased by around 3%
 
-Support: 14975 / 25, only 25 cases were fradulent. This remained the same as well.
+Support: 14975 / 25, only 25 cases were fradulent. This remained the same.
 
 The Random Search did not really help our Random Forest Classifier model to perform better.
+
+## Challenges / Improvements for the future
+
+This project overall was quite challenging, I've had to go back and make many different iterations. I caught many of the errors I've made and learned a lot too.
+
+The most challenging part of the project was cleaning the dataset correct and training our model accurately in order to achieve the best result.
+
+In the future I believe this project could be improved upon even more through the use of the following methods.
+
+1) Standardized my data / Scaling my data
+2) Possibly oversampling our fradulent transactions using Smote. (We should be very hesistant on undersampling our data as that would lead to data loss)
+https://imbalanced-learn.org/stable/references/generated/imblearn.over_sampling.SMOTE.html 
+
+In my EDA I could further explore the relationships from the type column to columns such as isFraud and isFlaggedFraud. For example CASH_OUT, CASH_IN, determining which transaction type is the most important or influential in determining whether something is Fraud or isn't Fraud.
+
+
 
 
 
